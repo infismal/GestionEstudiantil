@@ -7,16 +7,17 @@ CREATE TABLE Student (
     ,Name           VARCHAR(50) NOT NULL
     ,LastName       VARCHAR(50) NOT NULL
     ,IdCard         INTEGER NOT NULL
-    ,Carreer        VARCHAR(50) NOT NULL
+    ,Program        VARCHAR(50) NOT NULL
+    ,Faculty        VARCHAR(50) NOT NULL
     ,State          VARCHAR(1)  NOT NULL DEFAULT 'A'
     ,CreationDate   DATETIME    NOT NULL DEFAULT (datetime('now','localtime'))
     ,ModifiedDate   DATETIME    NOT NULL DEFAULT (datetime('now','localtime'))
 );
 
-INSERT INTO Student (Name, LastName, IdCard, Carreer, State) VALUES 
-('Juan', 'Perez', 1712345678, 'Ingeniería en Computación', 'A'),
-('Ana', 'Lopez', 1787654321, 'Ingeniería en Computación', 'A'),
-('Pedro', 'Ruiz', 1700001111, 'Redes y Telecomunicaciones', 'A'),
-('Maria', 'Gomez', 1722223333, 'Ingeniería de Software', 'A');
+INSERT INTO Student (Name, LastName, IdCard, Program, Faculty, State) VALUES 
+('Juan', 'Perez', 1712345678, 'Ingeniería en Computación', 'Sistemas', 'A'),
+('Ana', 'Lopez', 1787654321, 'Ingeniería en Computación','Sistemas', 'A'),
+('Pedro', 'Ruiz', 1700001111, 'Redes y Telecomunicaciones','Sistemas', 'A'),
+('Maria', 'Gomez', 1722223333, 'Ingeniería de Software','Sistemas', 'A');
 
 SELECT * FROM Student;

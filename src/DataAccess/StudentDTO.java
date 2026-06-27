@@ -7,7 +7,8 @@ public class StudentDTO {
     private String 	Name		  ;
     private String 	LastName	  ;
     private Integer IdCard		  ;
-    private String 	Carreer		  ;
+    private String 	Program		  ;
+    private String 	Faculty		  ;
     private String  State         ; 
     private String  CreationDate  ; 
     private String  ModifiedDate  ;
@@ -21,24 +22,26 @@ public class StudentDTO {
     public StudentDTO() {}
 
     // Constructor completo
-    public StudentDTO(Integer idStudent, String name, String lastName, Integer idCard, String carreer, String state,
+    public StudentDTO(Integer idStudent, String name, String lastName, Integer idCard, String program, String faculty, String state,
 			String creationDate, String modifiedDate) {
 		IdStudent = idStudent;
 		Name = name;
 		LastName = lastName;
 		IdCard = idCard;
-		Carreer = carreer;
+		Program = program;
+		Faculty = faculty;
 		State = state;
 		CreationDate = creationDate;
 		ModifiedDate = modifiedDate;
 	}
     
-    public StudentDTO(Integer idStudent, String name, String lastName, Integer idCard, String carreer) {
+    public StudentDTO(Integer idStudent, String name, String lastName, Integer idCard, String program, String faculty) {
         this.IdStudent = idStudent;
         this.Name = name;
         this.LastName = lastName;
         this.IdCard = idCard;
-        this.Carreer = carreer;
+        this.Program = program;
+        this.Faculty = faculty;
     }
 
 	public Integer getIdStudent() {
@@ -73,12 +76,20 @@ public class StudentDTO {
 		IdCard = idCard;
 	}
 	
-	public String getCarreer() {
-		return Carreer;
+	public String getProgram() {
+		return Program;
 	}
 
-	public void setCarreer(String carreer) {
-		Carreer = carreer;
+	public void setProgram(String program) {
+		Program = program;
+	}
+
+	public String getFaculty() {
+		return Faculty;
+	}
+
+	public void setFaculty(String faculty) {
+		Faculty = faculty;
 	}
 
 	public String getState() {
@@ -136,7 +147,8 @@ public class StudentDTO {
         + "\n Name        : "+ getName          ()
         + "\n LastName      : "+ getLastName        ()
         + "\n IdCard        : "+ getIdCard          ()
-        + "\n Carreer        : "+ getCarreer()
+        + "\n Program        : "+ getProgram()
+        + "\n Faculty        : "+ getFaculty()
         + "\n State        : "+ getState          ()
         + "\n CreationDate : "+ getCreationDate   ()
         + "\n ModifiedDate : "+ getModifiedDate   ();
