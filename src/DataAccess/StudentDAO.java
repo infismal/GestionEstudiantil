@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDAO {
+public class StudentDAO implements IDAO<StudentDTO> {
 	
 	// Método auxiliar para obtener la fecha y hora actual
     private String getNow() {
@@ -15,7 +15,7 @@ public class StudentDAO {
 
     public boolean create(StudentDTO st) {
         // Incluimos campos de auditoría: State = 'A' y CreationDate
-        String sql = "INSERT INTO Students (Name, LastName, IdCard, State, CreationDate) VALUES (?, ?, ?, 'A', ?)";
+        String sql = "INSERT INTO Student (Name, LastName, IdCard, State, CreationDate) VALUES (?, ?, ?, 'A', ?)";
         try (Connection conn = ConnectionDB.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, st.getName());
@@ -31,7 +31,7 @@ public class StudentDAO {
 
     public List<StudentDTO> readAll() {
         List<StudentDTO> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Students WHERE State = 'A'";
+        String sql = "SELECT * FROM Student WHERE State = 'A'";
         try (Connection conn = ConnectionDB.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -54,7 +54,7 @@ public class StudentDAO {
 
     public boolean update(StudentDTO st) {
         // Actualizamos datos y la fecha de modificación
-        String sql = "UPDATE Students SET Name = ?, LastName = ?, IdCard = ?, ModifiedDate = ? WHERE IdStudent = ?";
+        String sql = "UPDATE Student SET Name = ?, LastName = ?, IdCard = ?, ModifiedDate = ? WHERE IdStudent = ?";
         try (Connection conn = ConnectionDB.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, st.getName());
@@ -71,7 +71,7 @@ public class StudentDAO {
 
     public boolean delete(int idStudent) {
         // Eliminación lógica y actualizamos fecha de modificación
-        String sql = "UPDATE Students SET State = 'X', ModifiedDate = ? WHERE IdStudent = ?";
+        String sql = "UPDATE Student SET State = 'X', ModifiedDate = ? WHERE IdStudent = ?";
         try (Connection conn = ConnectionDB.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, getNow());
