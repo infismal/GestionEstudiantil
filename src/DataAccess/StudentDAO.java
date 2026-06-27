@@ -8,28 +8,27 @@ import java.util.List;
 
 public class StudentDAO implements IDAO<StudentDTO> {
 	
-	// Método auxiliar para obtener la fecha y hora actual
+    // Fecha y hora actual!!
     private String getNow() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
-    public boolean create(StudentDTO st) {
-        // Incluimos campos de auditoría: State = 'A' y CreationDate
-        String sql = "INSERT INTO Student (Name, LastName, IdCard, State, CreationDate) VALUES (?, ?, ?, 'A', ?)";
+    @Override
+    public boolean create(StudentDTO st) throws Exception {
+        String sql = "INSERT INTO Student (Name, LastName, IdCard, Carreer, State, CreationDate) VALUES (?, ?, ?, ?, 'A', ?)";
         try (Connection conn = ConnectionDB.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, st.getName());
             stmt.setString(2, st.getLastName());
-            stmt.setString(3, st.getIdCard());
-            stmt.setString(4, getNow()); // Inyectamos fecha de creación
+            stmt.setInt(3, st.getIdCard());       
+            stmt.setString(4, st.getCarreer());   
+            stmt.setString(5, getNow()); 
             return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error al insertar: " + e.getMessage());
-            return false;
-        }
+        } 
     }
 
-    public List<StudentDTO> readAll() {
+    @Override
+    public List<StudentDTO> readAll() throws Exception {
         List<StudentDTO> lista = new ArrayList<>();
         String sql = "SELECT * FROM Student WHERE State = 'A'";
         try (Connection conn = ConnectionDB.connect();
@@ -40,48 +39,66 @@ public class StudentDAO implements IDAO<StudentDTO> {
                 st.setIdStudent(rs.getInt("IdStudent"));
                 st.setName(rs.getString("Name"));
                 st.setLastName(rs.getString("LastName"));
-                st.setIdCard(rs.getString("IdCard"));
+                st.setIdCard(rs.getInt("IdCard"));         
+                st.setCarreer(rs.getString("Carreer"));    
                 st.setState(rs.getString("State"));
                 st.setCreationDate(rs.getString("CreationDate"));
                 st.setModifiedDate(rs.getString("ModifiedDate"));
                 lista.add(st);
             }
-        } catch (SQLException e) {
-            System.err.println("Error al leer: " + e.getMessage());
-        }
+        } 
         return lista;
     }
 
-    public boolean update(StudentDTO st) {
-        // Actualizamos datos y la fecha de modificación
-        String sql = "UPDATE Student SET Name = ?, LastName = ?, IdCard = ?, ModifiedDate = ? WHERE IdStudent = ?";
+    @Override
+    public boolean update(StudentDTO st) throws Exception {
+        // Se añade 'Carreer' al UPDATE
+        String sql = "UPDATE Student SET Name = ?, LastName = ?, IdCard = ?, Carreer = ?, ModifiedDate = ? WHERE IdStudent = ?";
         try (Connection conn = ConnectionDB.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, st.getName());
             stmt.setString(2, st.getLastName());
-            stmt.setString(3, st.getIdCard());
-            stmt.setString(4, getNow()); // Inyectamos fecha de modificación
-            stmt.setInt(5, st.getIdStudent());
+            stmt.setInt(3, st.getIdCard());       
+            stmt.setString(4, st.getCarreer());   
+            stmt.setString(5, getNow()); 
+            stmt.setInt(6, st.getIdStudent());
             return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error al actualizar: " + e.getMessage());
-            return false;
-        }
+        } 
     }
 
-    public boolean delete(int idStudent) {
-        // Eliminación lógica y actualizamos fecha de modificación
+    @Override
+    public boolean delete(Integer id) throws Exception {
         String sql = "UPDATE Student SET State = 'X', ModifiedDate = ? WHERE IdStudent = ?";
         try (Connection conn = ConnectionDB.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, getNow());
-            stmt.setInt(2, idStudent);
+            stmt.setInt(2, id);
             return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error al eliminar: " + e.getMessage());
-            return false;
-        }
+        } 
     }
-	
+
+    @Override
+    public StudentDTO readBy(Integer id) throws Exception {
+        StudentDTO st = null;
+        String sql = "SELECT * FROM Student WHERE IdStudent = ? AND State = 'A'";
+        try (Connection conn = ConnectionDB.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    st = new StudentDTO();
+                    st.setIdStudent(rs.getInt("IdStudent"));
+                    st.setName(rs.getString("Name"));
+                    st.setLastName(rs.getString("LastName"));
+                    st.setIdCard(rs.getInt("IdCard"));         
+                    st.setCarreer(rs.getString("Carreer"));    
+                    st.setState(rs.getString("State"));
+                    st.setCreationDate(rs.getString("CreationDate"));
+                    st.setModifiedDate(rs.getString("ModifiedDate"));
+                }
+            }
+        }
+        return st;
+    }
 
 }

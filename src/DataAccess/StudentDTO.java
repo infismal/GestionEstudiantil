@@ -6,25 +6,39 @@ public class StudentDTO {
     private Integer IdStudent	  ;
     private String 	Name		  ;
     private String 	LastName	  ;
-    private String 	IdCard		  ;
+    private Integer IdCard		  ;
+    private String 	Carreer		  ;
     private String  State         ; 
     private String  CreationDate  ; 
     private String  ModifiedDate  ;
     
-    // Las materias (como mencionaste que son 3, las incluimos aquí)
-    private double[] mathGrades = new double[5]; // Ejemplo de 5 notas
+ 
+    private double[] mathGrades = new double[5]; // Tomé como ejemplo 5 notas
     private double[] languageGrades = new double[5];
     private double[] physicGrades = new double[5];
 
-    // Constructor vacío (necesario para el Helper o para instanciar manualmente)
+	// Constructor vacío
     public StudentDTO() {}
 
     // Constructor completo
-    public StudentDTO(Integer idStudent, String name, String lastName, String idCard) {
+    public StudentDTO(Integer idStudent, String name, String lastName, Integer idCard, String carreer, String state,
+			String creationDate, String modifiedDate) {
+		IdStudent = idStudent;
+		Name = name;
+		LastName = lastName;
+		IdCard = idCard;
+		Carreer = carreer;
+		State = state;
+		CreationDate = creationDate;
+		ModifiedDate = modifiedDate;
+	}
+    
+    public StudentDTO(Integer idStudent, String name, String lastName, Integer idCard, String carreer) {
         this.IdStudent = idStudent;
         this.Name = name;
         this.LastName = lastName;
         this.IdCard = idCard;
+        this.Carreer = carreer;
     }
 
 	public Integer getIdStudent() {
@@ -51,14 +65,22 @@ public class StudentDTO {
 		LastName = lastName;
 	}
 
-	public String getIdCard() {
+	public Integer getIdCard() {
 		return IdCard;
 	}
 
-	public void setIdCard(String idCard) {
+	public void setIdCard(Integer idCard) {
 		IdCard = idCard;
 	}
 	
+	public String getCarreer() {
+		return Carreer;
+	}
+
+	public void setCarreer(String carreer) {
+		Carreer = carreer;
+	}
+
 	public String getState() {
 		return State;
 	}
@@ -114,6 +136,7 @@ public class StudentDTO {
         + "\n Name        : "+ getName          ()
         + "\n LastName      : "+ getLastName        ()
         + "\n IdCard        : "+ getIdCard          ()
+        + "\n Carreer        : "+ getCarreer()
         + "\n State        : "+ getState          ()
         + "\n CreationDate : "+ getCreationDate   ()
         + "\n ModifiedDate : "+ getModifiedDate   ();
