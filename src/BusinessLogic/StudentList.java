@@ -1,5 +1,6 @@
 package BusinessLogic;
 import DataAccess.StudentDTO;
+import Criteria.Criterion;
 
 
 public class StudentList {
@@ -72,8 +73,21 @@ public class StudentList {
 		throw new Exception("El estudiante buscado no se encuentra registrado");
 	}
 	
-	public void search() {   //  need to use strategy ??
+	public StudentList search(Criterion myCriterion) {   //  need to use strategy ??
 		
+		StudentList list = new StudentList();
+		
+		StudentNode aux = Top;
+		
+		while(aux != null) {
+			
+			if(myCriterion.conditionIsSatisfied(aux.getStudentDTO()))
+				list.insert(aux.getStudentDTO());
+			
+			aux = aux.Next;
+		}
+		
+		return list;
 		
 	}
 	public void delete(Integer idCard) throws Exception {
