@@ -9,29 +9,26 @@ public class StudentTree {
 
     //CHECK IF THE STUDENT TREE IS EMPTY
     public boolean isEmpty() {
-    	if(root!=null)
-    		return false;
-    	else
-    		return true;
+    	return root == null;
     }
     
     
     // INSERT NODE
-    public int insertNode(int idStudent, String[] subjects, int numGrades) {
-    	root = insertRec(root, idStudent, subjects, numGrades);
-    	return idStudent;
+    public int insertNode(gradesDTO grades) {
+    	root = insertRec(root,grades.getIdStudent, grades.getSubjects, grades.numGrades);
+    	return grades.getIdStudent();
     }
-
-    private SubjectNode insertRec(SubjectNode actual, int newIdStudent, String[] subjects, int numGrades) {
+// cambiado para usar private en variables
+    private SubjectNode insertRec(SubjectNode actual, int newIdStudent, String[] subjects, int[] Grades) {
 
         if (actual == null) {
-            return new SubjectNode(newIdStudent, subjects, numGrades);
+            return new SubjectNode(newIdStudent,subjects, Grades);
         }
 
-        if (newIdStudent < actual.idStudent) {
-            actual.left = insertRec(actual.left, newIdStudent, subjects, numGrades);
-        } else if (newIdStudent > actual.idStudent) {
-            actual.right = insertRec(actual.right, newIdStudent, subjects, numGrades);
+        if (newIdStudent < actual.getIdStudent()) {
+            actual.setLeft(insertRec(actual.getLeft(), newIdStudent, subjects, Grades));
+        } else if (newIdStudent > actual.getIdStudent()) {
+            actual.setRight(insertRec(actual.getRight(), newIdStudent, subjects, Grades));
         }
 
         return actual;
