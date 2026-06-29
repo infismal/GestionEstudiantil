@@ -156,7 +156,7 @@ public class StudentList {
 		      .append(student.getFaculty())
 		      .append("\n")
 		      .append("Carrera:\t")
-		      .append(student.getProgram())
+		      .append(student.getCareer())
 		      .append("\n")
 		      .append("Código Único del Estudiante:\t")
 		      .append(student.getIdStudent())

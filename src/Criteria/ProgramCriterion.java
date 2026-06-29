@@ -16,6 +16,6 @@ public class ProgramCriterion implements Criterion {
 	@Override
 	public boolean conditionIsSatisfied(StudentDTO myStudent) {
 		
-		return  myStudent.getProgram().equals(program);
+		return  myStudent.getCareer().equals(program);
 	}
 }

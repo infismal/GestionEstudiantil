@@ -7,7 +7,7 @@ public class StudentDTO {
     private String 	Name		  ;
     private String 	LastName	  ;
     private Integer IdCard		  ;
-    private String 	Program		  ;
+    private String 	Carrer  ;
     private String 	Faculty		  ;
     private String  State         ; 
     private String  CreationDate  ; 
@@ -28,7 +28,7 @@ public class StudentDTO {
 		Name = name;
 		LastName = lastName;
 		IdCard = idCard;
-		Program = program;
+		Carrer = program;
 		Faculty = faculty;
 		State = state;
 		CreationDate = creationDate;
@@ -40,7 +40,7 @@ public class StudentDTO {
         this.Name = name;
         this.LastName = lastName;
         this.IdCard = idCard;
-        this.Program = program;
+        this.Carrer = program;
         this.Faculty = faculty;
     }
 
@@ -76,12 +76,12 @@ public class StudentDTO {
 		IdCard = idCard;
 	}
 	
-	public String getProgram() {
-		return Program;
+	public String getCareer() {
+		return Carrer;
 	}
 
-	public void setProgram(String program) {
-		Program = program;
+	public void setCareer(String career) {
+		Carrer = career;
 	}
 
 	public String getFaculty() {
@@ -147,7 +147,7 @@ public class StudentDTO {
         + "\n Name        : "+ getName          ()
         + "\n LastName      : "+ getLastName        ()
         + "\n IdCard        : "+ getIdCard          ()
-        + "\n Program        : "+ getProgram()
+        + "\n Program        : "+ getCareer()
         + "\n Faculty        : "+ getFaculty()
         + "\n State        : "+ getState          ()
         + "\n CreationDate : "+ getCreationDate   ()
