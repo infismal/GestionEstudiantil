@@ -12,11 +12,7 @@ public class StudentDTO {
     private String  State         ; 
     private String  CreationDate  ; 
     private String  ModifiedDate  ;
-    
- 
-    private double[] mathGrades = new double[5]; // Tomé como ejemplo 5 notas
-    private double[] languageGrades = new double[5];
-    private double[] physicGrades = new double[5];
+   
 
 	// Constructor vacío
     public StudentDTO() {}

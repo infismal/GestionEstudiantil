@@ -1,5 +1,6 @@
 package BusinessLogic;
 
+import DataAccess.GradesDTO;
 public class StudentTree {
 	SubjectNode root;
 
@@ -14,7 +15,7 @@ public class StudentTree {
     
     
     // INSERT NODE
-    public int insertNode(gradesDTO grades) {
+    public int insertNode(GradesDTO grades) {
     	root = insertRec(root,grades.getIdStudent, grades.getSubjects, grades.numGrades);
     	return grades.getIdStudent();
     }
